@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>v-for</title>
+	</head>
+	<body>
+		<h1>v-for</h1>
+		<hr>
+		<div id="app">
+			<h3>双数和单数的错误排序</h3>
+			<ul>
+				<li v-for = "item in sortItemsOld">
+					{{ item }}
+				</li>
+			</ul>
+			<hr>
+			<h3>双数和单数的正确排序</h3>
+			<ul>
+				<li v-for = "item in sortItemsNew">
+					{{ item }}
+				</li>
+			</ul>
+			<hr>
+			<h3>对象排序</h3>
+			<ul>
+				<li v-for = "(student,index) in sortStudent">
+					{{ index+1 }} : {{ student.name }} - {{ student.age }}
+				</li>
+			</ul>
+		</div>
+		<script src="../assets/js/vue.js"></script>
+		<script>
+			var app = new Vue({
+				el : "#app",
+				data : {
+					itemsOld : [12,20,23,53,9,46],
+					itemsNew : [12,20,23,53,9,46],
+					students:[
+					  	{name:'jspang',age:32},
+					  	{name:'Panda',age:30},
+					  	{name:'PanPaN',age:21},
+					  	{name:'King',age:45}
+					]
+				},
+				computed : {//这个对象是在data渲染之前执行的对象
+					sortItemsOld : function(){
+						return this.itemsOld.sort();
+					},
+					sortItemsNew : function(){
+						return this.itemsNew.sort(sortNumber);
+					},
+					//这里通过比较sortItemsOld和sortItemsNew打印的数据就能看出来sort()的直接使用的bug，必须得通过sortNumber()函数去解决
+					sortStudent:function(){
+				     	return sortByKey(this.students,'age');
+					}
+				}
+			});
+			function sortNumber(a,b){
+				return a-b;
+			}
+			//数组对象方法排序:
+			function sortByKey(array,key){
+			    return array.sort(function(a,b){
+			      var x=a[key];
+			      var y=b[key];
+			      return ((x<y)?-1:((x>y)?1:0));
+			   });
+			}
+		</script>
+	</body>
+</html>

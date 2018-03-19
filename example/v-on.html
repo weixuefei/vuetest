@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>v-on实例</title>
+	</head>
+	<body>
+		<h1>v-on实例</h1>
+		<hr>
+		<div id="app">
+			本场比赛的得分是：{{ count }}
+			<p>
+				<button v-on:click = "addNum">增加分数</button>
+				<button @click = "decreaseNum">减少分数</button>
+				<br />
+				<!--
+                	描述：在input框中输入数值，按下回车键(回车键的健值为13)，来加不固定的分数
+                -->
+				<input type="text" v-on:keyup.13 = "onEnter" v-model = "count2" />
+			</p>
+		</div>
+		<script src="../assets/js/vue.js"></script>
+		<script>
+			var app = new Vue({
+				el : "#app" ,
+				data : {
+					count : 0 , 
+					count2 : 1
+				},
+				methods:{
+					addNum:function(){
+						this.count++;
+					},
+					decreaseNum:function(){
+						this.count--;
+					},
+					onEnter:function(){
+						this.count = this.count + parseInt(this.count2);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
