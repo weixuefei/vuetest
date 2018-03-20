@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue.directive 自定义指令 实例</title>
+	</head>
+	<body>
+		<h1>Vue.directive 自定义指令 实例</h1>
+		<hr>
+		<div id="app">
+			<p v-text="num" v-jspang="changeColor"></p>
+			<button v-on:click="add">ADD</button>
+		</div>
+		
+		<p>
+			<button onclick="unbind()">解绑</button>
+		</p>
+		<script type="text/javascript" src="../assets/js/vue.js"></script>
+		<script>
+			function unbind(){
+				app.$destroy();//组件的解绑方法
+			}
+			
+//			Vue.directive("jspang",function(el,binding){
+//				如果想在 bind 和 update 时触发相同行为，而不关心其它的钩子，可以这样简写方法
+//				console.log(el);//指令所绑定的元素，可以用来直接操作 DOM 。
+//				console.log(binding);
+//				el.style = "color:" + binding.value;
+//			});
+			Vue.directive("jspang",{
+				//一个指令对象提供以下5个钩子函数
+				bind:function(el,binding){//被绑定
+				    console.log('1 - bind');
+				    el.style = "color:" + binding.value;
+				},
+				inserted:function(){//绑定到节点
+			      	console.log('2 - inserted');
+				},
+				update:function(){//组件更新,初次渲染页面不会执行这个地方，只有组件发生变化的时候才会执行到这个地方
+			      	console.log('3 - update');
+				},
+				componentUpdated:function(){//组件更新完成
+			      	console.log('4 - componentUpdated');
+				},
+				unbind:function(){//解绑
+			      	console.log('5 - unbind');
+				}
+			});
+			
+			var app = new Vue({
+				el : "#app" ,
+				data : {
+					num : 10 ,
+					changeColor : "red"
+				},
+				methods:{
+					add:function(){
+						this.num++;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue.extend 扩展实例构造器  实例</title>
+	</head>
+	<body>
+		<h1>Vue.extend 扩展实例构造器  实例</h1>
+		<hr>
+		
+		<author></author>
+		<div id="wxf"></div>
+		
+		<script type="text/javascript" src="../assets/js/vue.js"></script>
+		<script>
+			var authorExtend = Vue.extend({
+				template : "<div><a v-bind:href='authorUrl' v-text='authorName'></a></div>" ,
+				data : function(){
+					return {
+						authorName : "魏雪非个人页" ,
+						authorUrl : "http://weixuefei.vip"
+					}
+				}
+			});
+			
+			new authorExtend().$mount("author");
+			new authorExtend().$mount("#wxf");
+		</script>
+	</body>
+</html>
