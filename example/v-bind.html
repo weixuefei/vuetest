@@ -3,19 +3,51 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>v-bind 实例</title>
+		<style>
+			.classA{
+				color:red;
+			}
+			.classB{
+				font-size:20px;
+			}
+		</style>
 	</head>
 	<body>
 		<h1>v-bind 实例</h1>
 		<hr>
 		<div id="app">
-			{{ message }}
+			<p><img v-bind:src="imgSrc" width="500px" /></p>
+			<p><a v-bind:href="personUrl">魏雪非个人站</a></p>
+			<div :class="className">1.绑定classA</div>
+			<div :class="{classA:isOk}">2.绑定class中的判断</div>
+			<div :class="[classNameA,classNameB]">3.绑定class中的数组</div>
+			<div :class="isOk?classNameA:classNameB">4.绑定class中的三元表达式</div>
+			<hr>
+			<p>
+				<input type="checkbox" id="isOkA" v-model="isOk" />
+				<label for="isOkA">isOk是{{isOk}}</label>
+			</p>
+			<hr>
+			<div :style="{color:greenA,fontSize:fontA}">5.绑定class中的style</div>
+			<div :style="styleObj">6.用对象绑定class中的style</div>
 		</div>
 		<script src="../assets/js/vue.js"></script>
 		<script>
 			var app = new Vue({
 				el : "#app" ,
 				data : {
-					message : "hello world" 
+					imgSrc : "http://s1.17house.com/newweb/pc/newHouse/images/newbanner.png" ,
+					personUrl : "http://weixuefei.vip",
+					className : "classA",
+					isOk : false ,
+					classNameA : "classA" ,
+					classNameB : "classB",
+					greenA : "green",
+					fontA : "25px",
+					styleObj : {
+						color : "#a0a0a0",
+						fontSize : "25px" //注意一下font-size在vue中的写法是fontSize，只要中间有-的都使用驼峰命名法
+					}
 				}
 			});
 		</script>
