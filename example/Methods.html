@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Methods Option  方法选项</title>
+	</head>
+	<body>
+		<h1>Methods Option  方法选项</h1>
+		<hr>
+		<div id="app">
+			{{ count }}
+			<!--
+            	描述：1.正常调用构造器函数
+            -->
+			<p><button @click="add(2,$event)">add</button></p>
+			<!--
+            	描述：2.组件调用构造器内部的函数
+            -->
+			<p><btn @click.native="add()"></btn></p>
+		</div>
+		<!--
+        	描述：3.作用于外部调用构造器内部的函数
+        -->
+		<button onclick="app.add(5)">外部add</button>
+		
+		<script type="text/javascript" src="../assets/js/vue.js"></script>
+		<script>
+			var btnComponent = {
+				template:`<button>组件add</button>`
+			}
+			
+			var app = new Vue({
+				el : "#app" ,
+				data : {
+					count : 0
+				},
+				components:{
+					"btn":btnComponent
+				},
+				methods : {
+					//传递的event参数，都是关于鼠标的一些事件和属性
+					add:function(num,event){
+						if(!num==""){
+							this.count+=num;
+						}else{
+							this.count++;
+						}
+						console.log(event);
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

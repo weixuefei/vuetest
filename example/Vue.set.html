@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue.set 全局操作  实例</title>
+	</head>
+	<body>
+		<h1>Vue.set 全局操作  实例</h1>
+		<hr>
+		
+		<div id="app">
+			{{ count }}
+			<ul>
+				<li v-for="item in arr">{{ item }}</li>
+			</ul>
+		</div>
+		
+		<button onclick = "add()">ADD</button>
+		
+		<script type="text/javascript" src="../assets/js/vue.js"></script>
+		<script>
+			
+			function add(){
+				//修改count值的三种方法
+				Vue.set(outData,"count",5);
+				//outData.count++;
+				//app.count++;
+
+				//直接修改数组变量
+				//outData.arr[1]="e";//修改失败
+				Vue.set(outData.arr,1,"e");//修改成功
+			}
+			
+			var outData = {
+				count : 1 ,
+				arr : ["aaa","bbb","ccc"]
+			}
+			
+			var app = new Vue({
+				el : "#app" ,
+				data : outData
+			})
+		</script>
+	</body>
+</html>

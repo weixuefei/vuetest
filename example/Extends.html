@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Extends Option  扩展选项</title>
+	</head>
+	<body>
+		<h1>Extends Option  扩展选项</h1>
+		<hr>
+		<div id="app">
+			num: ${ num }
+			<p><button @click="add">add</button></p>
+		</div>
+		<!--
+			*通过console，发现优先级：扩展的 > 构造器方法
+			* methods中相同函数名不能被扩展
+		-->
+		<script type="text/javascript" src="../assets/js/vue.js"></script>
+		<script>
+			var extendObj={
+	            updated:function(){
+	                console.log("我是被扩展出来的");
+	            },
+	            methods:{
+	                add:function(){
+	                    console.log('我是被扩展出来的方法！');
+	                }
+	            }
+	        };
+			
+			var app = new Vue({
+				el : "#app" ,
+				data : {
+					num :1
+				},
+				methods:{
+					add : function (){
+						this.num++;
+					}
+				},
+				updated:function(){
+					console.log("构造器里的updated方法");
+				},
+				extends:extendObj,
+				delimiters:["${","}"]//这个可以改写插入的方式,将{{}}修改为${}
+			})
+		</script>
+	</body>
+</html>

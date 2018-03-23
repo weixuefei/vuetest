@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Mixins 混入选项操作</title>
+	</head>
+	<body>
+		<h1>Mixins 混入选项操作</h1>
+		<hr>
+		<div id="app">
+			num: {{ num }}
+			<p><button @click="add">add</button></p>
+		</div>
+		<!--
+			*
+			* 通过查看console.log,发现优先级：全局混入 > 混入 > 构造器方法
+			* 
+			* 
+		-->
+		<script type="text/javascript" src="../assets/js/vue.js"></script>
+		<script>
+			//额外临时加入时，用于显示日志
+			var addConsole = {
+				updated:function(){
+					console.log("数值变化为:"+this.num);
+				}
+			}
+			//全局混入
+			Vue.mixin({
+				updated:function(){
+					console.log("我是全局被混入的");
+				}
+			});
+			
+			var app = new Vue({
+				el : "#app" ,
+				data : {
+					num :1
+				},
+				methods:{
+					add : function (){
+						this.num++;
+					}
+				},
+				updated:function(){
+					console.log("构造器里的updated方法");
+				},
+				mixins:[addConsole]
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>component 父子组件 实例</title>
+	</head>
+	<body>
+		<h1>component 父子组件 实例</h1>
+		<hr>
+		<div id="app">
+			<wxf></wxf>
+		</div>
+		<script type="text/javascript" src="../assets/js/vue.js"></script>
+		<script>
+			//子组件
+			var cityComponent = {
+				template : `<p style='color:green;'>来自河北</p>`
+			}
+			//父组件
+			var personComponent = {
+				//这里注意，子组件cityComponent一定要在父组件personComponent之前声明，而且<cityA></cityA>使用的时候一定要放到父组件的DOM内部
+				template : `
+					<div>
+						<p style='color:red;'>我是wxf</p>
+						<cityA></cityA>
+					</div>
+				`,
+				components : {
+					"cityA" : cityComponent
+				}
+			}
+			var app = new Vue({
+				el : "#app" ,
+				data : {},
+				components : {
+					"wxf" : personComponent
+				}
+			})
+		</script>
+	</body>
+</html>

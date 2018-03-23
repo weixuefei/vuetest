@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue的template制作模板三种写法  实例</title>
+	</head>
+	<body>
+		<h1>Vue的template制作模板三种写法  实例</h1>
+		<hr>
+		<div id="app">
+			<!--第二种方法：直接写template标签;注意id和构造器中template对应-->
+			<template id="dd2">
+				<p style="color:red;">我是template标签模板</p>
+			</template>
+		</div>
+		<!--第三种方法：直接写script标签；注意id和下方构造器中template对应，而且要加上type值;而且可以通过src引用外部js-->
+		<script type="x-template" id="dd3" src="./a.js">
+			<p style="color:red;">我是script标签模板</p>
+		</script>
+		
+		<script type="text/javascript" src="../assets/js/vue.js"></script>
+		<script>
+			var app = new Vue({
+				el : "#app" ,
+				data : {
+					
+				},
+				template : "#dd3"
+				//第一种方法：构造器中直接写,要注意是用``包起来的;但是不建议这么写
+				//template : `
+					//<p style="color:red;">我是构造器template选项模板</p>
+				//`
+			})
+		</script>
+	</body>
+</html>

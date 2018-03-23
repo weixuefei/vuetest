@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>component props属性 实例</title>
+	</head>
+	<body>
+		<h1>component props属性 实例</h1>
+		<hr>
+		<div id="app">
+			<wxf name="魏雪非" data-age="27" v-bind:data-sex="sexA"></wxf>
+		</div>
+		<script type="text/javascript" src="../assets/js/vue.js"></script>
+		<script>
+			var app = new Vue({
+				el : "#app" ,
+				data : {
+					sexA : "男"
+				},
+				components : {
+					"wxf" : {
+						template : "<div style='color:red;'>姓名：{{ name }}<br>年龄：{{ dataAge }}岁<br>性别：{{ dataSex }}</div>",
+						props : ["name","dataAge","dataSex"]
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
